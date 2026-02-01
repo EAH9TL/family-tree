@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  persons   Person[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Person {
+  id                String             @id @default(uuid())
+  firstName         String
+  lastName          String
+  birthDate         DateTime?
+  deathDate         DateTime?
+  gender            String
+  notes             String?
+  
+  fatherId          String?
+  father            Person?            @relation("Father", fields: [fatherId], references: [id], onDelete: SetNull)
+  childrenAsFather  Person[]           @relation("Father")
+  
+  motherId          String?
+  mother            Person?            @relation("Mother", fields: [motherId], references: [id], onDelete: SetNull)
+  childrenAsMother  Person[]           @relation("Mother")
+  
+  medicalConditions MedicalCondition[]
+  userId            String
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([fatherId])
+  @@index([motherId])
+}
+
+model MedicalCondition {
+  id            String    @id @default(uuid())
+  name          String
+  diagnosisDate DateTime?
+  severity      String    @default("medium")
+  isHereditary  Boolean   @default(false)
+  notes         String?
+  status        String    @default("active")
+  personId      String
+  person        Person    @relation(fields: [personId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([personId])
+}

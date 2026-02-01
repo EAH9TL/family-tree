@@ -1,73 +1,62 @@
-# React + TypeScript + Vite
+# 🌳 Family Health Tree
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para crear y visualizar un **árbol genealógico familiar** con registro de **enfermedades y antecedentes médicos**.  
+Construida con **React + TypeScript + Vite + TailwindCSS + React Flow** en el frontend y **Node.js + Express + Prisma** en el backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Características
 
-## React Compiler
+- Autenticación de usuarios (registro / login) con token (JWT).
+- Gestión de familiares:
+  - Crear, editar y eliminar personas.
+  - Definir padre y madre.
+  - Notas adicionales por persona.
+- Árbol genealógico interactivo:
+  - Visualización con **React Flow**.
+  - Pan y zoom con ratón o gestos táctiles (mobile-friendly).
+  - Indicadores visuales para:
+    - Personas con enfermedades.
+    - Enfermedades hereditarias.
+- Gestión de condiciones médicas:
+  - Nombre de la enfermedad.
+  - Fecha de diagnóstico.
+  - Severidad (leve, moderada, grave).
+  - Indicador de si es hereditaria.
+  - Estado (activa, controlada, curada).
+  - Notas.
+- Diseño **responsive / mobile friendly**:
+  - Panel lateral en escritorio.
+  - Panel inferior tipo “bottom sheet” en móvil.
+  - Formularios adaptados para uso táctil.
+- API REST organizada (personas, condiciones médicas, auth).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧱 Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- [Vite](https://vitejs.dev/) + React + TypeScript
+- [TailwindCSS](https://tailwindcss.com/)
+- [React Router DOM](https://reactrouter.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zustand](https://zustand-demo.pmnd.rs/) para estado global (auth y familia)
+- [React Flow](https://reactflow.dev/) para el árbol
+- Axios para llamadas HTTP
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend
+- Node.js + Express
+- Prisma ORM
+- PostgreSQL / SQLite (según cómo lo configures)
+- JSON Web Tokens (JWT) para autenticación
+- CORS
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Puesta en marcha
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. Clonar el repositorio
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+git clone <URL_DEL_REPO>
+cd family-tree
